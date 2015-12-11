@@ -1,24 +1,33 @@
+/*
+  Unit tests for Array2d.
+*/
+
+
 var should = require('./chai').should();
 var Array2d = require('../arr2d');
 
-function assert(cond, obj) {
-  console.assert(cond, Array.prototype.slice(arguments, 1));
+// Make a test object; saves on typing.
+function obj(w, h) {
+  var w = w | 0;
+  var h = h | 0;
+  return new Array2d(w, h);
 }
 
-/*
-  Usage:
-  var spy = createSpy();
-  spy();
-  spy();
-  assert(spy.count() == 2);     // True
-*/
-function createSpy() {
-  var n = 0;
-  function invoke() {n += 1;}
-  invoke.count = function() {return n;};
-  return invoke;
-}
+it("Should create an Array2d instance with no parameters.", function() {
+  var arr = obj();
+  arr.len().should.eql(0);
+});
 
-it("Should create an Array2d instance.", function() {
-  new Array2d();
+it("Should create an Array2d instance with width and height.", function() {
+  obj(2, 3);
+});
+
+it("Should confirm length.", function() {
+  var arr = obj(2, 3);
+  arr.len().should.be.eql(6);
+});
+
+it("Should check bounds.", function() {
+  var arr = obj();
+  arr.isBounded([0, 0]).should.be.true;
 });
