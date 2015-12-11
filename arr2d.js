@@ -33,13 +33,12 @@ module.exports = (function() {
   /*
     Decorates a method so that its position argument is required to be
     bound by the size of its internal array.
-
-    @pos: An array of the form [x, y].
   */
   var bound = function(f, err) {
+    // @pos: An array of the form [x, y].
     return function(pos) {
       if (typeof pos.length === 'undefined' || pos.length < 2)
-        throw 'First argument must be a coordinate of the form [x, y]';
+        throw 'First argument must be an array of the form [x, y].';
       var bounded = fn.is_bounded.call(this, pos);
       if (bounded)
         return f.apply(this, arguments);
