@@ -48,7 +48,7 @@ module.exports = (function() {
   };
 
   fn.len = function() {
-    return this.w * this.h;
+    return this.arr.length;
   };
 
   fn.fill = function(obj) {
