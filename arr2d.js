@@ -34,7 +34,7 @@ module.exports = (function() {
     Decorates a method so that its position argument is required to be
     bound by the size of its internal array.
   */
-  var bound = function(f, err) {
+  var bound = function(f) {
     // @pos: An array of the form [x, y].
     return function(pos) {
       if (typeof pos.length === 'undefined' || pos.length < 2)
@@ -43,7 +43,7 @@ module.exports = (function() {
       if (bounded)
         return f.apply(this, arguments);
       else
-        throw err || 'Position exceeds array bounds.';
+        throw 'Position exceeds array bounds.';
     };
   };
 
