@@ -1,4 +1,5 @@
 var should = require('./chai').should();
+var Array2d = require('../arr2d');
 
 function assert(cond, obj) {
   console.assert(cond, Array.prototype.slice(arguments, 1));
@@ -18,7 +19,6 @@ function createSpy() {
   return invoke;
 }
 
-it("Should do something", function() {
-  // throw Error('bad');
-  // assert(true, 'bad');
+it("Should create an Array2d instance.", function() {
+  new Array2d();
 });
