@@ -88,4 +88,24 @@ describe('Array2d', function() {
     arr.get([0, 0]).should.eql('foo');
   });
 
+  it("should check if a position is empty.", function() {
+    var arr = obj(2, 3);
+    arr.isEmptyAt([0, 0]).should.be.true;
+    compose(arr.isEmptyAt, arr)([5, 5]).should.throw();
+    arr.isEmptyAt([1, 2]).should.be.true;
+    arr.set([1, 2], 'foobar').isEmptyAt([1, 2]).should.be.false;
+    arr.set([1, 2], undefined).isEmptyAt([1, 2]).should.be.true;
+    arr.set([1, 2], null).isEmptyAt([1, 2]).should.be.false;
+  });
+
+  it("should check if a position is empty given a condition.", function() {
+    var arr = obj(2, 3);
+    arr.set([1, 2], 'foo');
+    // Suppose we want 'foo' values to be considered empty.
+    arr.isEmptyAt([1, 2], function(val) {
+      return val == 'foo';
+    }).should.be.true;
+    arr.set([1, 2], 'bar').isEmptyAt([1, 2]).should.be.false;
+  });
+
 });

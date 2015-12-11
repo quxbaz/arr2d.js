@@ -88,8 +88,8 @@ module.exports = (function() {
   // The value undefined is considered empty if no condition is
   // provided.
   fn.isEmptyAt = bound(function(pos, cond) {
-    var val = this.get(pos);
-    return cond ? cond(val) : (val ? false : true);
+    var val = this._get(pos);
+    return cond ? cond(val) : typeof val === 'undefined';
   });
 
   fn.clear = function() {
