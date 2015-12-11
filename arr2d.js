@@ -64,17 +64,29 @@ module.exports = (function() {
     return this.len() == 0;
   };
 
-  fn.get = bound(function(pos) {
+  // Unbound function for optimization. Avoids redundancy when the
+  // outer function is already bound.
+  fn._get = function(pos) {
     var i = pos[1] * this.w + pos[0];
     return this.arr[i];
-  });
+  };
 
-  fn.set = bound(function(pos, val) {
+  fn._set = function(pos, val) {
     var i = pos[1] * this.w + pos[0];
     this.arr[i] = val;
     return this;
+  };
+
+  fn.get = bound(function() {
+    return this._get.apply(this, arguments);
   });
 
+  fn.set = bound(function() {
+    return this._set.apply(this, arguments);
+  });
+
+  // The value undefined is considered empty if no condition is
+  // provided.
   fn.isEmptyAt = bound(function(pos, cond) {
     var val = this.get(pos);
     return cond ? cond(val) : (val ? false : true);
