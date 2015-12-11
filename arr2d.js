@@ -47,11 +47,6 @@ module.exports = (function() {
     };
   };
 
-  fn.isEmpty = bound(function(pos, cond) {
-    var val = this.get(pos);
-    return cond ? cond(val) : (val ? false : true);
-  });
-
   fn.isBounded = function(pos) {
     var x = pos[0];
     var y = pos[1];
@@ -76,6 +71,11 @@ module.exports = (function() {
     var i = pos[1] * this.w + pos[0];
     this.arr[i] = val;
     return this;
+  });
+
+  fn.isEmptyAt = bound(function(pos, cond) {
+    var val = this.get(pos);
+    return cond ? cond(val) : (val ? false : true);
   });
 
   fn.clear = function() {
