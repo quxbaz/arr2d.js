@@ -48,7 +48,7 @@ module.exports = (function() {
   };
 
   fn.len = function() {
-    return this.arr.length;
+    return this.w * this.h;
   };
 
   fn.fill = function(obj) {
@@ -112,7 +112,7 @@ module.exports = (function() {
       }
     };
 
-    for (var i=0; i < this.arr.length; i++) {
+    for (var i=0; i < this.len(); i++) {
       var x = i % this.w;
       var y = Math.floor(i / this.w);
       if (typeof context === 'undefined')
