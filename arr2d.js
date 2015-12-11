@@ -47,6 +47,15 @@ module.exports = (function() {
     };
   };
 
+  fn.isBounded = function(pos) {
+    var x = pos[0];
+    var y = pos[1];
+    return (
+      x >= 0 && x < this.w &&
+      y >= 0 && y < this.h
+    );
+  };
+
   fn.len = function() {
     return this.arr.length;
   };
@@ -66,11 +75,6 @@ module.exports = (function() {
       }
     }
     throw 'Array is already filled to max capacity.';
-  };
-
-  fn.isBounded = function(pos) {
-    return (pos[0] >= 0 && pos[0] < this.w
-            && pos[1] >= 0 && pos[1] < this.h);
   };
 
   fn.isEmpty = bound(function(pos, cond) {
