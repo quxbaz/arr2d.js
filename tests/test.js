@@ -14,11 +14,12 @@ var Array2d = require('../arr2d');
   var fn = compose(add)(2, 3);
   fn() -> 6
 */
-function compose(fn, context) {
+var compose = function(fn, context) {
   return function() {
-    return fn.apply(context, arguments);
-  }
-}
+    var args = arguments;
+    return function() {return fn.apply(context, args);};
+  };
+};
 
 // Make a test object; saves on typing.
 function obj(w, h) {
@@ -69,9 +70,9 @@ describe('Array2d', function() {
     arr.get([0, 1]);
     arr.get([1, 0]);
     arr.get([1, 2]);
-    arr.get([-1, 0]);
-    // arr.get([0, -1]).should.throw();
-    // arr.get([2, 3]).should.throw();
+    compose(arr.get, arr)([0, -1]).should.throw();
+    compose(arr.get, arr)([2, 3]).should.throw();
+    compose(arr.get, arr)([0, -1]).should.throw();
   });
 
 });
