@@ -75,4 +75,17 @@ describe('Array2d', function() {
     compose(arr.get, arr)([0, -1]).should.throw();
   });
 
+  it("should check if a position was set.", function() {
+    var arr = obj(2, 3);
+    arr.set([0, 0], 'foo');
+    arr.get([0, 0]).should.eql('foo');
+    arr.set([1, 1], 'bar');
+    arr.get([1, 1]).should.eql('bar');
+    arr.set([1, 2], 'qux');
+    arr.get([1, 2]).should.eql('qux');
+    // Make sure [0, 0] wasn't overwritten somehow.
+    arr.set([0, 0], 'foo');
+    arr.get([0, 0]).should.eql('foo');
+  });
+
 });
