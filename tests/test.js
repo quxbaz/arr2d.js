@@ -10,7 +10,7 @@ function assert(cond, obj) {
   spy();
   spy();
   assert(spy.count() == 2);     // True
- */
+*/
 function createSpy() {
   var n = 0;
   function invoke() {n += 1;}
