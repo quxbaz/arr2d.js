@@ -39,7 +39,7 @@ module.exports = (function() {
     return function(pos) {
       if (typeof pos.length === 'undefined' || pos.length < 2)
         throw 'First argument must be an array of the form [x, y].';
-      var bounded = fn.is_bounded.call(this, pos);
+      var bounded = fn.isBounded.call(this, pos);
       if (bounded)
         return f.apply(this, arguments);
       else
@@ -68,12 +68,12 @@ module.exports = (function() {
     throw 'Array is already filled to max capacity.';
   };
 
-  fn.is_bounded = function(pos) {
+  fn.isBounded = function(pos) {
     return (pos[0] >= 0 && pos[0] < this.w
             && pos[1] >= 0 && pos[1] < this.h);
   };
 
-  fn.is_empty = bound(function(pos, cond) {
+  fn.isEmpty = bound(function(pos, cond) {
     var val = this.get(pos);
     return cond ? cond(val) : (val ? false : true);
   });
