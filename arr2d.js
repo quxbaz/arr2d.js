@@ -22,10 +22,10 @@ module.exports = (function() {
         Internally, this structure uses  a flat array.
       */
 
-      this.w = w;
-      this.h = h;
+      this.w = w || 0;
+      this.h = h || 0;
       this.arr = [];
-      this.arr.length = w * h;
+      this.arr.length = this.w * this.h;
   };
 
   var fn = Array2d.prototype;
@@ -173,4 +173,4 @@ module.exports = (function() {
 
   return Array2d;
 
-});
+})();
