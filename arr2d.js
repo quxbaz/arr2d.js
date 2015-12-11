@@ -60,6 +60,10 @@ module.exports = (function() {
     return this.arr.length;
   };
 
+  fn.isEmpty = function() {
+    return this.len() == 0;
+  };
+
   fn.get = bound(function(pos) {
     // if (typeof pos === 'number')
     //     return this.arr[pos];

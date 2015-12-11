@@ -27,7 +27,22 @@ it("Should confirm length.", function() {
   arr.len().should.be.eql(6);
 });
 
-it("Should check bounds.", function() {
-  var arr = obj();
+it("Should return true on inside bounds.", function() {
+  var arr = obj(2, 3);
   arr.isBounded([0, 0]).should.be.true;
+  arr.isBounded([0, 1]).should.be.true;
+  arr.isBounded([1, 0]).should.be.true;
+  arr.isBounded([1, 2]).should.be.true;
+});
+
+it("Should return false on outside bounds.", function() {
+  var arr = obj(2, 3);
+  arr.isBounded([-1, 0]).should.be.false;
+  arr.isBounded([0, -1]).should.be.false;
+  arr.isBounded([2, 3]).should.be.false;
+});
+
+it("Should return check if obj is empty.", function() {
+  var arr = obj(0, 0);
+  arr.isEmpty().should.be.true;
 });
