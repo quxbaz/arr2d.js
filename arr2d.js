@@ -47,6 +47,11 @@ module.exports = (function() {
     };
   };
 
+  fn.isEmpty = bound(function(pos, cond) {
+    var val = this.get(pos);
+    return cond ? cond(val) : (val ? false : true);
+  });
+
   fn.isBounded = function(pos) {
     var x = pos[0];
     var y = pos[1];
@@ -59,28 +64,6 @@ module.exports = (function() {
   fn.len = function() {
     return this.arr.length;
   };
-
-  fn.inject = function(obj) {
-    /*
-      Adds an object to the first undefined position in the
-      array. Returns this to allow chaining. Throws an error if
-      the array is completely filled.
-    */
-
-    var len = this.w * this.h;
-    for (var i=0; i < len; i++) {
-      if (typeof this.arr[i] == 'undefined') {
-        this.arr[i] = obj;
-        return this;
-      }
-    }
-    throw 'Array is already filled to max capacity.';
-  };
-
-  fn.isEmpty = bound(function(pos, cond) {
-    var val = this.get(pos);
-    return cond ? cond(val) : (val ? false : true);
-  });
 
   fn.get = bound(function(pos) {
     // if (typeof pos === 'number')
@@ -98,6 +81,29 @@ module.exports = (function() {
   fn.clear = function() {
     for (var i=0; i < this.arr.length; i++)
       this.arr[i] = undefined;
+  };
+
+  // TODO: Add count option.
+  fn.inject = function(obj) {
+    /*
+      Adds an object to the first undefined position in the
+      array. Returns this to allow chaining. Throws an error if
+      the array is completely filled.
+    */
+
+    var len = this.w * this.h;
+    for (var i=0; i < len; i++) {
+      if (typeof this.arr[i] == 'undefined') {
+        this.arr[i] = obj;
+        return this;
+      }
+    }
+    throw 'Array is already filled to max capacity.';
+  };
+
+  // TODO
+  fn.fill = function(obj) {
+
   };
 
   fn.iter = function(iter, context) {
