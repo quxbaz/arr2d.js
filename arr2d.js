@@ -60,7 +60,7 @@ module.exports = (function() {
     return this.arr.length;
   };
 
-  fn.fill = function(obj) {
+  fn.inject = function(obj) {
     /*
       Adds an object to the first undefined position in the
       array. Returns this to allow chaining. Throws an error if
