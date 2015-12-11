@@ -65,8 +65,6 @@ module.exports = (function() {
   };
 
   fn.get = bound(function(pos) {
-    // if (typeof pos === 'number')
-    //     return this.arr[pos];
     var i = pos[1] * this.w + pos[0];
     return this.arr[i];
   });
