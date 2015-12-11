@@ -32,8 +32,9 @@ module.exports = (function() {
 
   /*
     Decorates a method so that its position argument is required to be
-    bound by the size of its internal array. It assumes a position
-    coordinate is the first argument passed to the method.
+    bound by the size of its internal array.
+
+    @pos: An array of the form [x, y].
   */
   var bound = function(f, err) {
     return function(pos) {
