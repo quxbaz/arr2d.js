@@ -60,7 +60,7 @@ describe('Array2d', function() {
     arr.isBounded([2, 3]).should.be.false;
   });
 
-  it("should return check if obj is empty.", function() {
+  it("should confirm obj is empty.", function() {
     var arr = obj(0, 0);
     arr.isEmpty().should.be.true;
   });
@@ -76,7 +76,7 @@ describe('Array2d', function() {
     compose(arr.get, arr)([0, -1]).should.throw();
   });
 
-  it("should check if a position was set.", function() {
+  it("should set a position.", function() {
     var arr = obj(2, 3);
     arr.set([0, 0], 'foo');
     arr.get([0, 0]).should.eql('foo');
@@ -89,7 +89,17 @@ describe('Array2d', function() {
     arr.get([0, 0]).should.eql('foo');
   });
 
-  it("should check if a position is empty.", function() {
+  it("should set given an index argument.", function() {
+    var arr = obj(3, 4);
+    arr.set(11, 'foobar');
+    arr.arr[11].should.eql('foobar');
+    arr.get(11).should.eql('foobar');
+    arr.get([2, 3]).should.eql('foobar');
+    arr.set(0, 'qux');
+    arr.get(0).should.eql('qux');
+  });
+
+  it("should get an empty position.", function() {
     var arr = obj(2, 3);
     arr.isEmptyAt([0, 0]).should.be.true;
     compose(arr.isEmptyAt, arr)([5, 5]).should.throw();
