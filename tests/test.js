@@ -155,6 +155,16 @@ describe('Array2d', function() {
       _.isEqual(arr.get(i), arr.indexToPos(i)).should.be.true;
   });
 
+  it("should add some rows.", function() {
+    var arr = obj(2, 1);
+    arr.set([1, 0], 'foobar');
+    arr.len().should.eql(2);
+    arr.addRows(1);
+    arr.len().should.eql(4);
+    arr.get([1, 0]).should.eql('foobar');
+    arr.print({repr: 'x', empty: 'o'});
+  });
+
   it("should inject a value into the first empty position.", function() {
     var arr = obj(3, 4);
     arr.set([0, 0], 'foo');

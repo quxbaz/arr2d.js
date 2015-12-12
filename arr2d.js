@@ -112,6 +112,11 @@ module.exports = (function() {
     return this;
   };
 
+  fn.addRows = function(nRows) {
+    this.arr.length += this.w * nRows;
+    this.h += nRows;
+  };
+
   fn.fill = function(val) {
     /*
       @val: A value or function. If a function is given, the current
@@ -156,7 +161,7 @@ module.exports = (function() {
       |
       | repr [optional]:
       | A function called on each object. The return value of the
-      | function is used as output.
+      | function is used as output. Also accepts a string.
       |
       | sep [optional]:
       | A separator string used in between each printed element.
@@ -172,8 +177,11 @@ module.exports = (function() {
       if (this.isEmptyAt(i))
         buffer.push(empty);
       else {
-        if (opts.repr) buffer.push(opts.repr(val));
-        else buffer.push(val);
+        var repr = opts.repr;
+        if (repr)
+          buffer.push(typeof repr == 'string' ? repr : opts.repr(val));
+        else
+          buffer.push(val);
       }
       if (pos[0] == this.w - 1) {
         console.log(buffer.join(sep));
