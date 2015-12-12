@@ -36,10 +36,8 @@ module.exports = (function() {
     bound by the size of its internal array.
   */
   var bound = function(f) {
-    // @pos: An array of the form [x, y].
+    // @pos: An index or array of the form [x, y].
     return function(pos) {
-      if (typeof pos.length === 'undefined' || pos.length < 2)
-        throw 'First argument must be an array of the form [x, y].';
       var bounded = fn.isBounded.call(this, pos);
       if (bounded)
         return f.apply(this, arguments);
@@ -49,10 +47,13 @@ module.exports = (function() {
   };
 
   fn.isBounded = function(pos) {
-    return (
-      pos[0] >= 0 && pos[0] < this.w &&
-      pos[1] >= 0 && pos[1] < this.h
-    );
+    if (typeof pos == 'number')
+      return pos < this.len();
+    else
+      return (
+        pos[0] >= 0 && pos[0] < this.w &&
+        pos[1] >= 0 && pos[1] < this.h
+      );
   };
 
   fn.len = function() {
@@ -76,11 +77,17 @@ module.exports = (function() {
   // Unbound function for optimization. Avoids redundancy when the
   // outer function is already bound.
   fn._get = function(pos) {
-    return this.arr[this.posToIndex(pos)];
+    if (typeof pos == 'number')
+      return this.arr[pos];
+    else
+      return this.arr[this.posToIndex(pos)];
   };
 
   fn._set = function(pos, val) {
-    this.arr[this.posToIndex(pos)] = val;
+    if (typeof pos == 'number')
+      this.arr[pos] = val;
+    else
+      this.arr[this.posToIndex(pos)] = val;
     return this;
   };
 
@@ -102,7 +109,7 @@ module.exports = (function() {
   fn.clear = function() {
     var len = this.len();
     for (var i=0; i < len; i++)
-      this.arr[i] = undefined;
+      this.set(i, undefined);
     return this;
   };
 
@@ -114,7 +121,7 @@ module.exports = (function() {
   fn.fill = function(val) {
     var len = this.len();
     for (var i=0; i < len; i++)
-      this.arr[i] = typeof val == 'function' ? val(this.indexToPos(i)) : val;
+      this.set(i, typeof val == 'function' ? val(this.indexToPos(i)) : val);
     return this;
   };
 
