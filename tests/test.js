@@ -138,12 +138,11 @@ describe('Array2d', function() {
   });
 
   it("should call .fill with a function argument.", function() {
-    var arr = obj(2, 3).fill(function() {
-      return {1: 2};
+    var arr = obj(3, 4).fill(function(pos) {
+      return pos;
     });
-    _.every(arr.arr, function(obj) {
-      return obj[1] == 2;
-    }).should.be.true;
+    for (var i=0; i < arr.len(); i++)
+      _.isEqual(arr.get(i), arr.indexToPos(i)).should.be.true;
   });
 
 });

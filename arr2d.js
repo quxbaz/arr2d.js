@@ -106,10 +106,15 @@ module.exports = (function() {
     return this;
   };
 
+  /*
+    You can provide a value or a function as an argument. If a
+    function is given the current position being filled will be passed
+    as an argument.
+  */
   fn.fill = function(val) {
     var len = this.len();
     for (var i=0; i < len; i++)
-      this.arr[i] = typeof val == 'function' ? val() : val;
+      this.arr[i] = typeof val == 'function' ? val(this.indexToPos(i)) : val;
     return this;
   };
 
