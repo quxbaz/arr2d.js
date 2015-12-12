@@ -99,6 +99,22 @@ describe('Array2d', function() {
     arr.set([1, 2], null).isEmptyAt([1, 2]).should.be.false;
   });
 
+  it("should convert a position coordinate to an array index.", function() {
+    var arr = obj(3, 4);
+    arr.posToIndex([0, 0]).should.eql(0);
+    arr.posToIndex([0, 3]).should.eql(9);
+    arr.posToIndex([1, 3]).should.eql(10);
+    arr.posToIndex([2, 3]).should.eql(11);
+  });
+
+  it("should convert a an array index to a position coordinate.", function() {
+    var arr = obj(3, 4);
+    arr.indexToPos(0).should.eql([0, 0]);
+    arr.indexToPos(9).should.eql([0, 3]);
+    arr.indexToPos(10).should.eql([1, 3]);
+    arr.indexToPos(11).should.eql([2, 3]);
+  });
+
   it("should check if a position is empty given a condition.", function() {
     var arr = obj(2, 3);
     arr.set([1, 2], 'foo');

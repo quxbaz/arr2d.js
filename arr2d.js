@@ -49,11 +49,9 @@ module.exports = (function() {
   };
 
   fn.isBounded = function(pos) {
-    var x = pos[0];
-    var y = pos[1];
     return (
-      x >= 0 && x < this.w &&
-      y >= 0 && y < this.h
+      pos[0] >= 0 && pos[0] < this.w &&
+      pos[1] >= 0 && pos[1] < this.h
     );
   };
 
@@ -65,16 +63,24 @@ module.exports = (function() {
     return this.len() == 0;
   };
 
+  fn.posToIndex = function(pos) {
+    return pos[1] * this.w + pos[0];
+  };
+
+  fn.indexToPos = function(index) {
+    var x = index % this.w;
+    var y = Math.floor(index / this.w);
+    return [x, y];
+  };
+
   // Unbound function for optimization. Avoids redundancy when the
   // outer function is already bound.
   fn._get = function(pos) {
-    var i = pos[1] * this.w + pos[0];
-    return this.arr[i];
+    return this.arr[this.posToIndex(pos)];
   };
 
   fn._set = function(pos, val) {
-    var i = pos[1] * this.w + pos[0];
-    this.arr[i] = val;
+    this.arr[this.posToIndex(pos)] = val;
     return this;
   };
 
