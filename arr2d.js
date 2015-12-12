@@ -152,41 +152,36 @@ module.exports = (function() {
     /*
       Prints out the array as a matrix.
 
-      Parameters:
-
-      @opts
-
-      repr [optional]:
-      A function called on each object. The return value of the
-      function is used as output.
-
-      sep [optional]:
-      A separator string used in between each printed element.
-
-      empty [optional]:
-      A default string to use when the array element is undefined.
+      @opts:
+      |
+      | repr [optional]:
+      | A function called on each object. The return value of the
+      | function is used as output.
+      |
+      | sep [optional]:
+      | A separator string used in between each printed element.
+      |
+      | empty [optional]:
+      | A default string to use when the array element is undefined.
     */
     var opts   = opts || {};
     var sep    = opts.sep || ' ';
     var empty  = opts.empty || ' ';
     var buffer = [];
-    this.iter(function(i, x, y, obj) {
-      if (typeof obj == 'undefined')
+    this.iter(function(val, pos, i) {
+      if (this.isEmptyAt(i))
         buffer.push(empty);
       else {
-        if (opts.repr)
-          buffer.push(opts.repr(obj));
-        else
-          buffer.push(obj);
+        if (opts.repr) buffer.push(opts.repr(val));
+        else buffer.push(val);
       }
-      if (x == this.w - 1) {
+      if (pos[0] == this.w - 1) {
         console.log(buffer.join(sep));
         buffer.length = 0;
       }
     }, this);
     if (buffer.length > 0)
       console.log(buffer.join(sep));
-
     return this;
   };
 
