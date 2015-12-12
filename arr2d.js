@@ -136,30 +136,15 @@ module.exports = (function() {
     throw 'Array is completely filled.';
   };
 
-  fn.iter = function(iter, context) {
+  fn.iter = function(fn, context) {
     /*
-      Applies the function iter through each element of the
-      array. iter takes the following arguments:
-
-      iter(i, x, y, obj, set)
+      Applies @fn through each element of the array.
+      @fn is provided the following arguments:
+        fn(val, [x, y], index)
+      @context: The context @fn is bound to.
     */
-    var arr = this.arr;
-
-    var setf = function(i) {
-      return function(v) {
-        arr[i] = v;
-      }
-    };
-
-    for (var i=0; i < this.len(); i++) {
-      var x = i % this.w;
-      var y = Math.floor(i / this.w);
-      if (typeof context === 'undefined')
-        iter(i, x, y, this.arr[i], setf(i));
-      else
-        iter.call(context, i, x, y, this.arr[i], setf(i));
-    }
-
+    for (var i=0; i < this.len(); i++)
+      fn.call(context, this.get(i), this.indexToPos(i), i);
     return this;
   };
 

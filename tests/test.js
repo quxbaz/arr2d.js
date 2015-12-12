@@ -117,7 +117,7 @@ describe('Array2d', function() {
     arr.posToIndex([2, 3]).should.eql(11);
   });
 
-  it("should convert a an array index to a position coordinate.", function() {
+  it("should convert an array index to a position coordinate.", function() {
     var arr = obj(3, 4);
     arr.indexToPos(0).should.eql([0, 0]);
     arr.indexToPos(9).should.eql([0, 3]);
@@ -171,6 +171,15 @@ describe('Array2d', function() {
     arr.set(0, 'foo');
     arr.set(1, 'foo');
     compose(arr.inject, arr)('foo').should.throw();
+  });
+
+  it("should iterate through an object and set its values.", function() {
+    var arr = obj(3, 4);
+    arr.iter(function(val, pos, i) {
+      arr.set(i, pos);
+    });
+    for (var i=0; i < arr.len(); i++)
+      arr.get(i).should.eql(arr.indexToPos(i));
   });
 
 });
