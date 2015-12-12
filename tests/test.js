@@ -109,4 +109,16 @@ describe('Array2d', function() {
     arr.set([1, 2], 'bar').isEmptyAt([1, 2]).should.be.false;
   });
 
+  it("should test .fill and .clear", function() {
+    var arr = obj(2, 3);
+    arr.fill('a');
+    _.every(arr.arr, function(val) {
+      return val == 'a';
+    }).should.be.true;
+    arr.clear();
+    _.every(arr.arr, function(val) {
+      return val === undefined;
+    }).should.be.true;
+  });
+
 });
