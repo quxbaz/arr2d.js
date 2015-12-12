@@ -12,6 +12,7 @@
 /*
   TODO:
   Add row/column functions.
+  get/set should also be able to take a single value.
 */
 
 
@@ -93,8 +94,15 @@ module.exports = (function() {
   });
 
   fn.clear = function() {
-    for (var i=0; i < this.arr.length; i++)
+    var len = this.len();
+    for (var i=0; i < len; i++)
       this.arr[i] = undefined;
+  };
+
+  fn.fill = function(val) {
+    var len = this.len();
+    for (var i=0; i < len; i++)
+      this.arr[i] = typeof val == 'function' ? val() : val;
   };
 
   // TODO: Add count option.
@@ -113,11 +121,6 @@ module.exports = (function() {
       }
     }
     throw 'Array is already filled to max capacity.';
-  };
-
-  // TODO
-  fn.fill = function(obj) {
-
   };
 
   fn.iter = function(iter, context) {
