@@ -121,4 +121,13 @@ describe('Array2d', function() {
     }).should.be.true;
   });
 
+  it("should call .fill with a function argument.", function() {
+    var arr = obj(2, 3).fill(function() {
+      return {1: 2};
+    });
+    _.every(arr.arr, function(obj) {
+      return obj[1] == 2;
+    }).should.be.true;
+  });
+
 });
