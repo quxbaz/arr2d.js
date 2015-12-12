@@ -97,12 +97,14 @@ module.exports = (function() {
     var len = this.len();
     for (var i=0; i < len; i++)
       this.arr[i] = undefined;
+    return this;
   };
 
   fn.fill = function(val) {
     var len = this.len();
     for (var i=0; i < len; i++)
       this.arr[i] = typeof val == 'function' ? val() : val;
+    return this;
   };
 
   // TODO: Add count option.
