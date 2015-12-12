@@ -12,7 +12,6 @@
 /*
   TODO:
   Add row/column functions.
-  get/set should also be able to take a single value.
 */
 
 
@@ -31,13 +30,13 @@ module.exports = (function() {
 
   var fn = Array2d.prototype;
 
-  /*
-    Decorates a method so that its position argument is required to be
-    bound by the size of its internal array.
-  */
   var bound = function(f) {
-    // @pos: An index or array of the form [x, y].
+    /*
+      Decorates a method so that its position argument is required to be
+      bound by the size of its internal array.
+    */
     return function(pos) {
+      // @pos: An index or array of the form [x, y].
       var bounded = fn.isBounded.call(this, pos);
       if (bounded)
         return f.apply(this, arguments);
@@ -99,9 +98,9 @@ module.exports = (function() {
     return this._set.apply(this, arguments);
   });
 
-  // The value undefined is considered empty if no condition is
-  // provided.
   fn.isEmptyAt = bound(function(pos, cond) {
+    // The value undefined is considered empty if no condition is
+    // provided.
     var val = this._get(pos);
     return cond ? cond(val) : typeof val === 'undefined';
   });
@@ -113,26 +112,23 @@ module.exports = (function() {
     return this;
   };
 
-  /*
-    You can provide a value or a function as an argument. If a
-    function is given the current position being filled will be passed
-    as an argument.
-  */
   fn.fill = function(val) {
+    /*
+      @val: A value or function. If a function is given, the current
+      position being filled will be passed to it during iteration.
+    */
     var len = this.len();
     for (var i=0; i < len; i++)
       this.set(i, typeof val == 'function' ? val(this.indexToPos(i)) : val);
     return this;
   };
 
-  // TODO: Add count option.
-  fn.inject = function(obj) {
+  fn.inject = function(obj, count) {
     /*
       Adds an object to the first undefined position in the
       array. Returns this to allow chaining. Throws an error if
       the array is completely filled.
     */
-
     var len = this.w * this.h;
     for (var i=0; i < len; i++) {
       if (typeof this.arr[i] == 'undefined') {
@@ -150,7 +146,6 @@ module.exports = (function() {
 
       iter(i, x, y, obj, set)
     */
-
     var arr = this.arr;
 
     var setf = function(i) {
@@ -189,7 +184,6 @@ module.exports = (function() {
       empty [optional]:
       A default string to use when the array element is undefined.
     */
-
     var opts   = opts || {};
     var sep    = opts.sep || ' ';
     var empty  = opts.empty || ' ';
