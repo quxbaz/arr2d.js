@@ -155,4 +155,22 @@ describe('Array2d', function() {
       _.isEqual(arr.get(i), arr.indexToPos(i)).should.be.true;
   });
 
+  it("should inject a value into the first empty position.", function() {
+    var arr = obj(3, 4);
+    arr.set([0, 0], 'foo');
+    arr.set([1, 0], 'foo');
+    arr.inject('bar');
+    arr.get([1, 0]).should.eql('foo');
+    arr.get([2, 0]).should.eql('bar');
+    arr.inject('qux');
+    arr.get([0, 1]).should.eql('qux');
+  });
+
+  it("should throw on attempting to inject into a full array.", function() {
+    var arr = obj(2, 1);
+    arr.set(0, 'foo');
+    arr.set(1, 'foo');
+    compose(arr.inject, arr)('foo').should.throw();
+  });
+
 });

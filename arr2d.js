@@ -45,6 +45,7 @@ module.exports = (function() {
     };
   };
 
+  // TODO: See if you can use this._get here
   fn.isBounded = function(pos) {
     if (typeof pos == 'number')
       return pos < this.len();
@@ -123,20 +124,17 @@ module.exports = (function() {
     return this;
   };
 
-  fn.inject = function(obj, count) {
+  fn.inject = function(val) {
     /*
-      Adds an object to the first undefined position in the
-      array. Returns this to allow chaining. Throws an error if
-      the array is completely filled.
+      Adds an object to the first empty (ie, undefined) position in
+      the array. Throws an error if the array is completely filled.
     */
-    var len = this.w * this.h;
+    var len = this.len();
     for (var i=0; i < len; i++) {
-      if (typeof this.arr[i] == 'undefined') {
-        this.arr[i] = obj;
-        return this;
-      }
+      if (this.isEmptyAt(i))
+        return this.set(i, val);
     }
-    throw 'Array is already filled to max capacity.';
+    throw 'Array is completely filled.';
   };
 
   fn.iter = function(iter, context) {
