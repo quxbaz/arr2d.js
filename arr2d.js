@@ -45,7 +45,6 @@ module.exports = (function() {
     };
   };
 
-  // TODO: See if you can use this._get here
   fn.isBounded = function(pos) {
     if (typeof pos == 'number')
       return pos < this.len();
