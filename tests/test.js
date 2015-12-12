@@ -3,6 +3,7 @@
 */
 
 
+var _ = require('./underscore');
 var should = require('./chai').should();
 var Array2d = require('../arr2d');
 
