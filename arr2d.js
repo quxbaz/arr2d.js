@@ -6,6 +6,11 @@
   Usage:
   var arr = new Array2d(3, 4);
 
+  arr.set([1, 2], 'x');
+  arr.get([1, 2]);              // 'x'
+
+  arr.fill('z');
+  arr.get([1, 2]);              // 'z'
 */
 
 
