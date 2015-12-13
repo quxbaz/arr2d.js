@@ -19,14 +19,13 @@
 module.exports = (function() {
 
   function Array2d(w, h) {
-      /*
-        Internally, this structure uses  a flat array.
-      */
-
-      this.w = w || 0;
-      this.h = h || 0;
-      this.arr = [];
-      this.arr.length = this.w * this.h;
+    /*
+      Internally, this structure uses  a flat array.
+    */
+    this.w = w || 0;
+    this.h = h || 0;
+    this.arr = [];
+    this.arr.length = this.w * this.h;
   };
 
   var fn = Array2d.prototype;
