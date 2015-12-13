@@ -4,7 +4,9 @@
   2d array class
 
   Usage:
+
   var arr = new Array2d(3, 4);
+  arr.len();                    // 12
 
   arr.set([1, 2], 'x');
   arr.get([1, 2]);              // 'x'
