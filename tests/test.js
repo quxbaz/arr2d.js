@@ -8,7 +8,8 @@ var should = require('./chai').should();
 var Array2d = require('../arr2d');
 
 /*
-  Used to render functions that throw and error testable.
+  This is being used to so that test functions that throw an exception
+  can be tested..
 
   Usage:
   var add = function(x, y) {return x + y;};
