@@ -1,0 +1,18 @@
+{
+  "name": "arr2d.js",
+  "main": "arr2d.js",
+  "homepage": "https://github.com/quxbaz/arr2d.js",
+  "authors": [
+    "David Yeung <quxbaz@gmail.com>"
+  ],
+  "description": "Easy to use 2d array class.",
+  "moduleType": [],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
