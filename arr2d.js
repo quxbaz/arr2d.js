@@ -4,14 +4,8 @@
   2d array class
 
   Usage:
-  <todo>
+  var arr = new Array2d(3, 4);
 
-*/
-
-
-/*
-  TODO:
-  Add row/column functions.
 */
 
 
@@ -115,6 +109,22 @@ module.exports = (function() {
   fn.addRows = function(nRows) {
     this.arr.length += this.w * nRows;
     this.h += nRows;
+    return this;
+  };
+
+  fn.addCols = function(nCols) {
+    var newArr = new Array((this.w + nCols) * this.h);
+    var map = [];
+    this.iter(function(val, pos, i) {
+      map.push(function() {
+        this.set(pos, val);
+      }.bind(this));
+    });
+    this.w += nCols;
+    this.arr = newArr;
+    for (var i=0; i < map.length; i++)
+      map[i]();
+    return this;
   };
 
   fn.fill = function(val) {
@@ -146,8 +156,11 @@ module.exports = (function() {
       Applies @fn through each element of the array.
       @fn is provided the following arguments:
         fn(val, [x, y], index)
-      @context: The context @fn is bound to.
+      @context: The context @fn is bound to. The default context is
+      set to 'this'.
     */
+    if (typeof context == 'undefined')
+      var context = this;
     for (var i=0; i < this.len(); i++)
       fn.call(context, this.get(i), this.indexToPos(i), i);
     return this;
@@ -171,7 +184,7 @@ module.exports = (function() {
     */
     var opts   = opts || {};
     var sep    = opts.sep || ' ';
-    var empty  = opts.empty || ' ';
+    var empty  = opts.empty || '-';
     var buffer = [];
     this.iter(function(val, pos, i) {
       if (this.isEmptyAt(i))

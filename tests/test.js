@@ -32,7 +32,7 @@ function obj(w, h) {
 describe('Array2d', function() {
 
   it("should create an instance with no parameters.", function() {
-  var arr = obj();
+    var arr = obj();
     arr.len().should.eql(0);
   });
 
@@ -162,7 +162,27 @@ describe('Array2d', function() {
     arr.addRows(1);
     arr.len().should.eql(4);
     arr.get([1, 0]).should.eql('foobar');
-    arr.print({repr: 'x', empty: 'o'});
+  });
+
+  it("should add some columns.", function() {
+    var arr = obj(2, 2);
+    arr.len().should.eql(4);
+    arr.addCols(1);
+    arr.len().should.eql(6);
+    arr.fill('x');
+    arr.addCols(3);
+    arr.get([0, 0]).should.eql('x');
+    arr.get([1, 0]).should.eql('x');
+    arr.get([2, 0]).should.eql('x');
+    arr.get([0, 1]).should.eql('x');
+    arr.get([1, 1]).should.eql('x');
+    arr.get([2, 1]).should.eql('x');
+    (arr.get([3, 0]) === undefined).should.be.true;
+    (arr.get([4, 0]) === undefined).should.be.true;
+    (arr.get([5, 0]) === undefined).should.be.true;
+    (arr.get([5, 1]) === undefined).should.be.true;
+    (arr.get([5, 1]) === undefined).should.be.true;
+    (arr.get([5, 1]) === undefined).should.be.true;
   });
 
   it("should inject a value into the first empty position.", function() {
