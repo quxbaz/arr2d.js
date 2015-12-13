@@ -9,7 +9,7 @@ var Array2d = require('../arr2d');
 
 /*
   This is being used to so that test functions that throw an exception
-  can be tested..
+  can be tested.
 
   Usage:
   var add = function(x, y) {return x + y;};
