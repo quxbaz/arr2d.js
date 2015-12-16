@@ -41,7 +41,7 @@ module.exports = (function() {
       if (bounded)
         return f.apply(this, arguments);
       else
-        throw 'Position exceeds array bounds.';
+        throw Error('Position exceeds array bounds.');
     };
   };
 
@@ -154,7 +154,7 @@ module.exports = (function() {
       if (this.isEmptyAt(i))
         return this.set(i, val);
     }
-    throw 'Array is completely filled.';
+    throw Error('Array is completely filled.');
   };
 
   fn.iter = function(fn, context) {
