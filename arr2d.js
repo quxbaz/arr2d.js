@@ -133,7 +133,7 @@ module.exports = (function() {
   fn.addCols = function(nCols) {
     var newArr = new Array((this.w + nCols) * this.h);
     var map = [];
-    this.iter(function(val, pos, i) {
+    this.iter(function(val, pos) {
       map.push(function() {
         this.set(pos, val);
       }.bind(this));
