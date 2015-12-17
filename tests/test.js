@@ -165,7 +165,6 @@ describe('Array2d', function() {
     arr.len().should.eql(6);
     arr.get([1, 0]).should.eql('foobar');
     arr.get([1, 1]).should.eql('quxqux');
-    arr.print();
   });
 
   it("should add some columns.", function() {
