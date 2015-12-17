@@ -124,12 +124,9 @@ module.exports = (function() {
   };
 
   fn.addRows = function(nRows) {
-    this.arr.length += this.w * nRows;
+    for (var i=0; i < this.w * nRows; i++)
+      this.arr.push(undefined);
     this.h += nRows;
-    var len = this.len();
-    var start = len - this.w * nRows;
-    for (var i=start; i < len; i++)
-      this.set(i, undefined);
     return this;
   };
 
