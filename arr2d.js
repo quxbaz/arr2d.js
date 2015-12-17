@@ -26,6 +26,7 @@ module.exports = (function() {
     this.h = h || 0;
     this.arr = [];
     this.arr.length = this.w * this.h;
+    this.fill(undefined);
   };
 
   var fn = Array2d.prototype;
