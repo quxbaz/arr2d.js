@@ -131,15 +131,15 @@ module.exports = (function() {
   };
 
   fn.addCols = function(nCols) {
-    var newArr = new Array((this.w + nCols) * this.h);
     var map = [];
     this.iter(function(val, pos) {
       map.push(function() {
         this.set(pos, val);
       }.bind(this));
     });
+    this.arr.length += nCols * this.h;
+    this.fill(undefined);
     this.w += nCols;
-    this.arr = newArr;
     for (var i=0; i < map.length; i++)
       map[i]();
     return this;
