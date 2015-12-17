@@ -213,4 +213,19 @@ describe('Array2d', function() {
       arr.get(i).should.eql(arr.indexToPos(i));
   });
 
+  it("should get an array rows with the correct data.", function() {
+    var arr = obj(3, 4);
+    arr.set([0, 0], 0).set([2, 0], 10);
+    arr.set([0, 1], 1).set([2, 1], 11);
+    arr.set([0, 2], 2).set([2, 2], 12);
+    arr.set([0, 3], 3).set([2, 3], 13);
+    var rows = arr.rows;
+    rows.length.should.eql(4);
+    _.each(rows, function(row, i) {
+      row.length.should.eql(3);
+      row[0].should.eql(i);
+      row[2].should.eql(i + 10)
+    });
+  });
+
 });

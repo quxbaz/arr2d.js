@@ -30,6 +30,16 @@ module.exports = (function() {
 
   var fn = Array2d.prototype;
 
+  Object.defineProperty(fn, 'rows', {
+    get: function() {
+      var rows = [];
+      var len = this.len();
+      for (var i=0; i < len; i += this.w)
+        rows.push(this.arr.slice(i, i + this.w));
+      return rows;
+    }
+  });
+
   var bound = function(f) {
     /*
       Decorates a method so that its position argument is required to be
