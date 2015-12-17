@@ -157,12 +157,15 @@ describe('Array2d', function() {
   });
 
   it("should add some rows.", function() {
-    var arr = obj(2, 1);
+    var arr = obj(2, 2);
     arr.set([1, 0], 'foobar');
-    arr.len().should.eql(2);
-    arr.addRows(1);
+    arr.set([1, 1], 'quxqux');
     arr.len().should.eql(4);
+    arr.addRows(1);
+    arr.len().should.eql(6);
     arr.get([1, 0]).should.eql('foobar');
+    arr.get([1, 1]).should.eql('quxqux');
+    arr.print();
   });
 
   it("should add some columns.", function() {
